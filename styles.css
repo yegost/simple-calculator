@@ -41,7 +41,7 @@ body {
 
 }
 
-#selected-display {
+#display-equation {
     width: 100%;
     height: 40px;
     font-size: 22px;
@@ -50,7 +50,7 @@ body {
 
 }
 
-#display {
+#display-current {
     width: 100%;
     height: 40px;
     font-size: 48px; 
