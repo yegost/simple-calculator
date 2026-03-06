@@ -6,15 +6,22 @@
     padding: 0;
 }
 
+:root {
+    --primary-color: #BA655A;
+    --secondary-color: #FDF3DE;
+    --accent-color: #DFC5AF;
+    --hover-color: #f1ddb1;
+    --top-buttons-color: #f5d0a7;
+    --side-buttons-color: #e6b57d;
+}
+
 body {
     font-family: 'Arial', sans-serif;
-    background: #BA655A;
-
+    background: var(--primary-color);
 }
 
 #container {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -24,13 +31,13 @@ body {
 #calculator {
     width: 300px;
     height: 465px;
-    background-color: #FDF3DE;
+    background-color: var(--secondary-color);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
+    /* display */
 #display-container {
     width: 260px;
     height: 85px;
@@ -38,27 +45,26 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: end;
+}
 
+#display-equation, #display-current {
+    padding: 7px;
+    text-align: right;
+    color: var(--primary-color);
+    width: 100%;
+    height: 40px;
+    border: none;
+    background-color: var(--secondary-color);
 }
 
 #display-equation {
-    width: 100%;
-    height: 40px;
     font-size: 22px;
-    border: none;
-    background-color: #FDF3DE;
-
 }
 
 #display-current {
-    width: 100%;
-    height: 40px;
     font-size: 48px; 
-    border: none;
-    background-color: #FDF3DE;
-
 }
-
+    /* buttons */
 #buttons {
     width: 260px;
     display: flex;
@@ -67,35 +73,41 @@ body {
     gap: 5px;
 }
 
-button {
+.btn {
     cursor: pointer;
     width: 60px;
     height: 60px;
     border-radius: 50%;
     border: none;
     font-size: 24px;
-    color:#BA655A;
-    background-color:#DFC5AF;
+    color: var(--primary-color);
+    background-color: var(--accent-color);
     transition: all 0.2s ease;
 }
 
-button:hover {
+.btn:hover {
     transform: scale(1.1);
-    background-color: #f1ddb1; 
+    background-color: var(--hover-color); 
 }
 
-.top-btn {
+.btn-top, .btn-side {
     color:#BA655A;
-    background-color:#f5d0a7;
 }
 
-.side-btn {
-    color:#BA655A;
-    background-color:#e6b57d;
+.btn-top {
+    background-color:var(--top-buttons-color);
+}
+
+.btn-side {
+    background-color:var(--side-buttons-color);
 } 
 
 .bi-backspace {
     width: 30px;
     height: 60px;
     padding-right: 3px;
+}
+
+.btn-subtract {
+    padding-bottom: 5px;
 }
