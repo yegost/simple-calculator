@@ -25,12 +25,18 @@ const calculator = (() => {
             mainDisplay.value = state.current;
         } else if (state.operator) {
             const modPart = state.modifier ? `${state.modifier}` : "";
-            mainDisplay.value = `${state.previous} ${state.operator}${modPart} ${state.current}`;;
+            mainDisplay.value = `${state.previous} ${state.operator}${modPart} ${state.current}`;
             secondaryDisplay.value = "";
         } else {
             mainDisplay.value = state.current !== '' ? state.current : '0';
             secondaryDisplay.value = "";
         }
+
+        const length = mainDisplay.value.length;
+        const fontSize = mainDisplay.style.fontSize;
+        if (length > 12) mainDisplay.style.fontSize = "24px";
+        else if (length > 8) mainDisplay.style.fontSize = "32px";
+        else mainDisplay.style.fontSize = "48px";
     }
 
         //Adds numbers as strings to the state and handles dots
