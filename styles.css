@@ -4,6 +4,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'DM Sans', sans-serif;
 }
 
 :root {
@@ -16,73 +17,75 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
     background: var(--primary-color);
 }
 
 #container {
+    height: 100vh;
+    width: 100vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    width: 100vw;
 }
 
 #calculator {
     width: 300px;
-    height: 465px;
-    background-color: var(--secondary-color);
-    border-radius: 20px;
+    height: 455px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-radius: 20px;
+    background-color: var(--secondary-color);
 }
     /* display */
 #display-container {
     width: 260px;
-    height: 85px;
-    margin: 20px auto;
+    height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: end;
+    margin: 5px auto 10px;
 }
 
 #display-equation, #display-current {
+    width: 100%;
     padding: 7px;
     text-align: right;
-    color: var(--primary-color);
-    width: 100%;
-    height: 40px;
-    border: none;
     background-color: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
 }
 
 #display-equation {
-    font-size: 22px;
+    height: 30px; 
+    font-size: 18px;
 }
 
 #display-current {
-    font-size: 48px; 
+    height: 55px; 
+    font-size: 48px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
     /* buttons */
 #buttons {
     width: 260px;
+    gap: 5px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 5px;
 }
 
 .btn {
-    cursor: pointer;
-    width: 60px;
     height: 60px;
-    border-radius: 50%;
-    border: none;
+    width: 60px;
     font-size: 24px;
     color: var(--primary-color);
     background-color: var(--accent-color);
+    border: none;
+    border-radius: 50%;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .btn:hover {
