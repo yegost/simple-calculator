@@ -14,8 +14,7 @@ const calculator = (() => {
         previous: '', 
         operator: null, 
         modifier: null,
-        justEvaluated: false,
-        
+        justEvaluated: false
     };
 
         //Updates the main display
@@ -33,7 +32,6 @@ const calculator = (() => {
         }
 
         const length = mainDisplay.value.length;
-        const fontSize = mainDisplay.style.fontSize;
         if (length > 12) mainDisplay.style.fontSize = "24px";
         else if (length > 8) mainDisplay.style.fontSize = "32px";
         else mainDisplay.style.fontSize = "48px";
@@ -135,6 +133,8 @@ const calculator = (() => {
 
         //Listens for buttons and manages them
     buttons.addEventListener('click', (event) => {
+        event.target.blur();
+
         const digitBtn = event.target.closest("[data-value]");
         const operatorBtn = event.target.closest("[data-operator]");
         const actionBtn = event.target.closest("[data-action]")
@@ -148,8 +148,23 @@ const calculator = (() => {
                 case 'backspace': backspace(); break;
             }
         }
-
     })  
+
+        //Keyboard mapping
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") equals();
+        if (event.key === "Backspace") backspace();
+        if (event.key === "Delete") clear();
+        if (event.key === "+") inputOperator("+");
+        if (event.key === "-") inputOperator("-");
+        if (event.key === "*") inputOperator("*");
+        if (event.key === "/") {
+            event.preventDefault();
+            inputOperator("/");
+        };
+        if (event.key === ".") inputDigit(".");
+        if ("0123456789".includes(event.key)) inputDigit(event.key);
+    })
 
     updateMainDisplay();
 })();
