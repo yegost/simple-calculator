@@ -55,13 +55,34 @@ const calculator = (() => {
 
         //Attaches the operator to state
     function inputOperator(operator) {
+        if (state.justEvaluated) {
+            console.log(state)
+            state.justEvaluated = false;
+            console.log(state)
+        }
+        if (state.current === '' && state.previous === '') {
+            state.previous = "0";
+            state.operator = operator;
+            state.modifier = null;
+            updateMainDisplay();
+            return;
+        }
+        if (state.current.endsWith(".")) {
+            state.current = state.current.slice(0, -1);
+        }
         if (SIGN_MODIFIERS.has(operator) && PRIMARY_OPERATORS.has(state.operator)) {
             state.modifier = operator;
             updateMainDisplay();
             return;
         }
         if (state.operator && state.previous !== '' && state.current !== '') {
-            equals()
+            equals();
+            state.justEvaluated = false;
+        }
+        if (state.operator && state.current === '') {
+            state.operator = operator;
+            updateMainDisplay();
+            return;
         }
         state.previous = state.current;
         state.current = '';
@@ -71,6 +92,7 @@ const calculator = (() => {
 
         //Handles calculations
     function equals() {
+        if (state.operator === null || state.previous === '' || state.current === '') return;
         const p = parseFloat(state.previous)
         const c = state.modifier === "-" ? -parseFloat(state.current) : parseFloat(state.current)
         let result;
@@ -126,6 +148,7 @@ const calculator = (() => {
                 case 'backspace': backspace(); break;
             }
         }
+
     })  
 
     updateMainDisplay();
