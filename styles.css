@@ -13,6 +13,12 @@
     --hover-color: #f1ddb1;
     --top-buttons-color: #f5d0a7;
     --side-buttons-color: #e6b57d;
+    --history-text-color: rgb(252, 252, 252);
+    --history-bg-color: rgba(78, 78, 78, 0.486);
+    --history-border-color: rgba(255, 255, 255, 0.3);
+    --history-button-bg-color: rgb(66, 65, 65);
+    --history-fade-color: rgba(78, 78, 78, 0);
+    --shadow-color: rgba(0, 0, 0, 0.15);
     --main-font: 'DM Sans', sans-serif;
 }
 
@@ -31,20 +37,22 @@ body {
 #calculator {
     width: 300px;
     height: 455px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
     background-color: var(--secondary-color);
+    overflow: hidden;
 }
     /* display */
 #display-container {
     width: 260px;
     height: 100px;
+    margin: 5px auto 10px;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    margin: 5px auto 10px;
 }
 
 #display-equation, #display-current {
@@ -68,6 +76,7 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
     /* buttons */
 #buttons {
     width: 260px;
@@ -88,7 +97,7 @@ body {
     border-radius: 50%;
     transition: transform 0.1s ease, background-color 0.1s ease, box-shadow 0.1s ease;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 4px var(--shadow-color);
 }
 
 .btn:hover {
@@ -101,7 +110,7 @@ body {
 }
 
 .btn-top, .btn-side {
-    color:#BA655A;
+    color: var(--primary-color);
 }
 
 .btn-top {
@@ -120,4 +129,116 @@ body {
 
 .btn-subtract {
     padding-bottom: 5px;
+}
+
+    /* history panel */
+#history-panel {
+    height: 74%;
+    width: 90%;
+    bottom: 14px;
+    position: absolute;
+    flex-direction: column;
+    background: var(--history-bg-color);
+    border-radius: 15px;
+    border: 1px solid var(--history-border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);  
+    overflow: hidden;
+    transform: translateY(120%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+    /* history header */
+#history-header {
+    padding: 5px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--history-bg-color);
+    font-family: var(--main-font);
+    color: var(--history-text-color);
+}
+
+    /* history close button */
+#history-close {
+    height: 25px;
+    width: 25px;
+    padding: 0 0 2px 1px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--history-button-bg-color);
+    color: var(--history-text-color);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#history-close:hover {
+    background-color: var(--history-button-bg-color);
+    filter: brightness(0.9);
+}
+
+#history-close:active {
+    padding-bottom: 3px;
+    transform: scale(0.9);
+    filter: brightness(0.9);
+}
+
+    /* history list */
+#history-list-container {
+    width: 100%;
+    height: 88%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#history-list {
+    width: 95%;
+    height: 100%;
+    gap: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    overflow-y: auto;
+}
+
+#history-list::-webkit-scrollbar {
+    width: 0;
+}
+
+#history-item {
+    padding: 5px;
+    font-size: 18px;
+    font-family: var(--main-font);
+    color: var(--history-text-color);
+    border-bottom: 1px solid var(--history-border-color);
+}
+
+#history-list-container::before,
+#history-list-container::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 30px;
+    z-index: 2;
+}
+
+#history-list-container::before {
+    top: 0;
+    background: linear-gradient(to bottom, var(--history-bg-color), var(--history-fade-color)); 
+}
+
+#history-list-container::after {
+    bottom: 0;
+    background: linear-gradient(to top, var(--history-bg-color), var(--history-fade-color)); 
+}
+
+#history-panel.open {
+    transform: translateY(0);
+    opacity: 1;
 }

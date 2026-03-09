@@ -2,6 +2,8 @@ const calculator = (() => {
     const mainDisplay = document.getElementById('display-current');
     const secondaryDisplay = document.getElementById('display-equation');
     const buttons = document.getElementById('buttons');  
+    const panel = document.getElementById("history-panel");
+    const closeBtn = document.getElementById("history-close");
 
         //Operator classification    
     const PRIMARY_OPERATORS = new Set(['*', '/']);
@@ -27,7 +29,7 @@ const calculator = (() => {
         } else if (state.operator) {
             const modPart = state.modifier ? `${state.modifier}` : '';
 
-            mainDisplay.value = `${state.previous} ${state.operator}${modPart} ${currentPart}`;
+            mainDisplay.value = `${state.previous}${state.operator}${modPart}${currentPart}`;
             secondaryDisplay.value = '';
         } else {
             mainDisplay.value = currentPart !== '' ? currentPart : '0';
@@ -156,6 +158,9 @@ const calculator = (() => {
         updateMainDisplay();
     }
     
+    function showHistory() {
+        panel.classList.add("open");
+    }
 
         //Listens for buttons and manages them
     buttons.addEventListener('click', (event) => {
@@ -173,6 +178,7 @@ const calculator = (() => {
                 case 'clear': clear(); break;
                 case 'backspace': backspace(); break;
                 case 'percent': inputPercent(); break;
+                case 'history': showHistory(); break;
             }
         }
     });
@@ -182,6 +188,7 @@ const calculator = (() => {
         if (event.key === 'Enter') equals();
         if (event.key === 'Backspace') backspace();
         if (event.key === 'Delete') clear();
+        if (event.key === 'h') showHistory();
         if (event.key === '%') inputPercent();
         if (event.key === '+') inputOperator('+');
         if (event.key === '-') inputOperator('-');
@@ -192,6 +199,10 @@ const calculator = (() => {
         }
         if (event.key === '.') inputDigit('.');
         if ('0123456789'.includes(event.key)) inputDigit(event.key);
+    });
+
+    closeBtn.addEventListener("click", () => {
+        panel.classList.remove("open");
     });
 
     updateMainDisplay();
