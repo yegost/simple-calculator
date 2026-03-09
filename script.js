@@ -2,6 +2,7 @@ const calculator = (() => {
     const mainDisplay = document.getElementById('display-current');
     const secondaryDisplay = document.getElementById('display-equation');
     const panel = document.getElementById('history-panel');
+    const list = document.getElementById('history-list');
 
         //Operator classification    
     const PRIMARY_OPERATORS = new Set(['*', '/']);
@@ -107,6 +108,8 @@ const calculator = (() => {
             case '/': result = p / c; break;
         }
 
+        state.history.unshift(`${state.previous} ${state.operator} ${currentLabel} = ${result}`);
+
         state.equation = `${state.previous} ${state.operator}${state.modifier ? state.modifier : ''} ${currentLabel}`;
         state.current = String(result);
         state.previous = '';
@@ -159,6 +162,9 @@ const calculator = (() => {
     
     function showHistory() {
         panel.classList.add('open');
+        list.innerHTML = state.history
+            .map(item => `<li class="history-item">${item}</li>`)
+            .join('');
     }
 
         //Listens for buttons and manages them
