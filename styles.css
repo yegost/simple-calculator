@@ -210,7 +210,7 @@ body {
     width: 0;
 }
 
-#history-item {
+.history-item {
     padding: 5px;
     font-size: 18px;
     font-family: var(--main-font);

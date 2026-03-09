@@ -1,9 +1,7 @@
 const calculator = (() => {
     const mainDisplay = document.getElementById('display-current');
     const secondaryDisplay = document.getElementById('display-equation');
-    const buttons = document.getElementById('buttons');  
-    const panel = document.getElementById("history-panel");
-    const closeBtn = document.getElementById("history-close");
+    const panel = document.getElementById('history-panel');
 
         //Operator classification    
     const PRIMARY_OPERATORS = new Set(['*', '/']);
@@ -17,7 +15,8 @@ const calculator = (() => {
         operator: null, 
         modifier: null,
         justEvaluated: false,
-        percentDisplay: null
+        percentDisplay: null,
+        history: []
     };
 
         //Updates the main display
@@ -159,11 +158,11 @@ const calculator = (() => {
     }
     
     function showHistory() {
-        panel.classList.add("open");
+        panel.classList.add('open');
     }
 
         //Listens for buttons and manages them
-    buttons.addEventListener('click', (event) => {
+    document.getElementById('calculator').addEventListener('click', (event) => {
         event.target.blur();
 
         const digitBtn = event.target.closest('[data-value]');
@@ -179,6 +178,7 @@ const calculator = (() => {
                 case 'backspace': backspace(); break;
                 case 'percent': inputPercent(); break;
                 case 'history': showHistory(); break;
+                case 'close-history': panel.classList.remove('open'); break;
             }
         }
     });
@@ -199,10 +199,6 @@ const calculator = (() => {
         }
         if (event.key === '.') inputDigit('.');
         if ('0123456789'.includes(event.key)) inputDigit(event.key);
-    });
-
-    closeBtn.addEventListener("click", () => {
-        panel.classList.remove("open");
     });
 
     updateMainDisplay();
