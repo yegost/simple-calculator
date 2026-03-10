@@ -217,10 +217,21 @@ const calculator = (() => {
 
         // Keyboard mapping
     document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+            } 
+        }
         if (event.key === 'Enter') equals();
         if (event.key === 'Backspace') backspace();
         if (event.key === 'Delete') clear();
-        if (event.key === 'h') showHistory();
+        if (event.key === 'h') {
+            if (panel.classList.contains('open')) {
+                panel.classList.remove('open');
+            } else {
+                showHistory();
+            }
+        } 
         if (event.key === '%') inputPercent();
         if (event.key === '+') inputOperator('+');
         if (event.key === '-') inputOperator('-');
