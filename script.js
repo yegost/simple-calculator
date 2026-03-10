@@ -4,11 +4,11 @@ const calculator = (() => {
     const panel = document.getElementById('history-panel');
     const list = document.getElementById('history-list');
 
-        //Operator classification    
+        // Operator classification    
     const PRIMARY_OPERATORS = new Set(['*', '/']);
     const SIGN_MODIFIERS = new Set(['+', '-']);
 
-        //Where variables are stored
+        // Where variables are stored
     const state = { 
         equation: '',
         current: '', 
@@ -134,9 +134,16 @@ const calculator = (() => {
         updateMainDisplay();
     }
 
-        // Removes last char
+        // Removes last number or operator
     function backspace() {
-        state.current = state.current.slice(0, -1);
+        if (state.modifier) {
+            state.modifier = null;
+        } else if (state.operator) {
+            state.operator = null;
+            state.current = state.previous;
+        } else {
+            state.current = state.current.slice(0, -1);
+        }
 
         updateMainDisplay();
     }
@@ -152,9 +159,12 @@ const calculator = (() => {
         const p = parseFloat(state.previous);
 
         if (state.previous !== '' && (state.operator === '+' || state.operator === '-')) {
+            state.percentDisplay = state.current + '%';
             result = (c / 100) * p; 
         } else {
+            state.percentDisplay = null;
             result = c / 100;
+            state.history.unshift(`${state.current}% = ${String(result)}`)
         }
         
         state.current = String(result);
@@ -190,6 +200,20 @@ const calculator = (() => {
             }
         }
     });
+
+        // Listens for the list items inside history and displays them on the screens
+    document.getElementById('history-list').addEventListener('click', (event) => {
+        const item = event.target.closest('.history-item');
+        if (!item) return;
+
+        const parts = item.textContent.split(' = ');
+        state.equation = parts[0];
+        state.current = parts[1];
+        state.justEvaluated = true;
+
+        panel.classList.remove('open');
+        updateMainDisplay();
+    })
 
         // Keyboard mapping
     document.addEventListener('keydown', (event) => {
