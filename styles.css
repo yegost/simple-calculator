@@ -118,12 +118,17 @@ body {
 }
 
 .btn-side {
+    font-size: 35px;
+    padding-bottom: 3px;
     background-color:var(--side-buttons-color);
 } 
 
-.bi-backspace {
+.bi-backspace, .bi-clock-history {
     width: 30px;
     height: 60px;
+}
+
+.bi-backspace {
     padding-right: 3px;
 }
 

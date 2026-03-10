@@ -20,7 +20,7 @@ const calculator = (() => {
         history: []
     };
 
-        //Updates the main display
+        // Updates the main and secondary display
     function updateMainDisplay() {
         const currentPart = state.percentDisplay ? state.percentDisplay : state.current;
         if (state.justEvaluated) {
@@ -42,7 +42,7 @@ const calculator = (() => {
         else mainDisplay.style.fontSize = '48px';
     }
 
-        //Adds numbers as strings to the state and handles dots
+        // Adds numbers as strings to the state and handles dots
     function inputDigit(digit) {
         if (state.justEvaluated) clear();
         state.percentDisplay = null;
@@ -57,7 +57,7 @@ const calculator = (() => {
         updateMainDisplay();
     }
 
-        //Attaches the operator to state
+        // Attaches the operator to state
     function inputOperator(operator) {
         if (state.justEvaluated) {
             state.justEvaluated = false;
@@ -93,7 +93,7 @@ const calculator = (() => {
         updateMainDisplay();
     }
 
-        //Handles calculations
+        // Handles calculations
     function equals() {
         if (state.operator === null || state.previous === '' || state.current === '') return;
         const p = parseFloat(state.previous)
@@ -121,7 +121,7 @@ const calculator = (() => {
         updateMainDisplay();
     }
 
-        //Resets the state
+        // Resets the state
     function clear() {
         state.equation = '';
         state.current = '';
@@ -134,13 +134,14 @@ const calculator = (() => {
         updateMainDisplay();
     }
 
-        //Removes last char
+        // Removes last char
     function backspace() {
         state.current = state.current.slice(0, -1);
 
         updateMainDisplay();
     }
 
+        // Handles percentage calc and adds % after the number to state.current
     function inputPercent() {
         if (state.current === '') return;
 
@@ -159,7 +160,8 @@ const calculator = (() => {
         state.current = String(result);
         updateMainDisplay();
     }
-    
+
+        // Opens history window and adds list elements from state.history to it
     function showHistory() {
         panel.classList.add('open');
         list.innerHTML = state.history
@@ -167,7 +169,7 @@ const calculator = (() => {
             .join('');
     }
 
-        //Listens for buttons and manages them
+        // Listens for buttons and manages them
     document.getElementById('calculator').addEventListener('click', (event) => {
         event.target.blur();
 
@@ -189,7 +191,7 @@ const calculator = (() => {
         }
     });
 
-        //Keyboard mapping
+        // Keyboard mapping
     document.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') equals();
         if (event.key === 'Backspace') backspace();
