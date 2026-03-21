@@ -1,6 +1,6 @@
 # Simple Calculator
 
-A basic calculator built with **HTML, CSS, and JavaScript**. Supports standard arithmetic operations, percentages, keyboard input, interactive buttons, and a calculation history.
+A simple calculator created using **HTML, CSS, and JavaScript**. It handles basic arithmetic operations, includes percentage calculations, supports keyboard input, features interactive buttons, and keeps a history of calculations.
 
 ## Features
 
